@@ -43,7 +43,9 @@ namespace TicTacToe {
 
         #endregion
 
-
+        /// <summary>
+        /// Starts a new game and clears all values back to the start
+        /// </summary>
         private void NewGame() {
             // Create a new blank array of free cells
             mResults = new MarkType[9];
@@ -65,6 +67,45 @@ namespace TicTacToe {
 
             // Make sure the game hasn't finished
             mGameEnded = false;
+        }
+
+        /// <summary>
+        /// Handles a button click event
+        /// </summary>
+        /// <param name="sender">The button that was clicked</param>
+        /// <param name="e">The events of the click</param>
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            //Start a new game on the click after it finished
+            if (mGameEnded) {
+                NewGame();
+                return;
+            }
+
+            // Cast the sender to a button
+            var button = (Button)sender;
+
+            //Find the buttons position in the array
+            var column = Grid.GetColumn(button);
+            var row = Grid.GetRow(button);
+
+            var index = column + (row * 3);
+
+            // Don't do anything if it already has a value in it
+            if (mResults[index] != MarkType.Free)
+                return;
+
+            // Set the cell value based on which player turn is it
+            mResults[index] = mPlayer1Turn ? MarkType.Cross : MarkType.Nought;
+
+            // Set button text to the result
+            button.Content = mPlayer1Turn ? "X" : "O";
+
+            // Change nought to green
+            if (!mPlayer1Turn)
+                button.Foreground = Brushes.Red;
+
+            // Toggle the player's turns
+            mPlayer1Turn ^= true;
         }
     }
 }
