@@ -17,7 +17,7 @@
         </Style>
     </Window.Resources>
     
-    <Grid x:Name="Container">
+    <Grid x:Name="Container" Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
